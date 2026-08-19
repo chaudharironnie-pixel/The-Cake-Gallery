@@ -1,8 +1,8 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import ScrollReveal from './ScrollReveal'
-import ImageWithFallback from './ImageWithFallback'
 import { FaInstagram } from 'react-icons/fa'
 import { Cake, Award, Leaf } from 'lucide-react'
+import bakerImage from '../assets/hero-image.png'
 
 export default function About() {
   const shouldReduceMotion = useReducedMotion()
@@ -18,9 +18,9 @@ export default function About() {
               transition={{ type: 'spring', stiffness: 200, damping: 15 }}
             >
               <div className="absolute -inset-4 bg-blush/30 rounded-3xl rotate-3" />
-              <ImageWithFallback
-                src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800&q=80"
-                alt="Prachi Patel with her husky, the heart behind The Cake Gallery"
+              <img
+                src={bakerImage}
+                alt="Prachi Patel — the heart behind The Cake Gallery"
                 className="relative rounded-2xl shadow-xl w-full object-cover aspect-[4/5] md:aspect-[3/4]"
                 loading="lazy"
               />

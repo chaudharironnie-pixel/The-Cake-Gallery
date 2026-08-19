@@ -3,13 +3,8 @@ import { motion, useScroll, useTransform, useReducedMotion, AnimatePresence } fr
 import WhatsAppIcon from './WhatsAppIcon'
 import ImageWithFallback from './ImageWithFallback'
 import { ChevronDown, ChevronLeft, ChevronRight } from 'lucide-react'
-import heroImage from '../assets/hero-image.png'
 
 const SLIDES = [
-  {
-    src: heroImage,
-    alt: 'The Cake Gallery signature creation',
-  },
   {
     src: 'https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=1920&q=80',
     alt: 'Rich dark chocolate cake with glossy ganache',
