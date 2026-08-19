@@ -10,4 +10,28 @@ export default function WhatsAppFloatButton({ drawerOpen }) {
       target="_blank"
       rel="noopener"
       className={`whatsapp-float ${drawerOpen ? 'hidden-drawer' : ''}`}
-      aria-
+      aria-label="Chat on WhatsApp"
+      whileHover={shouldReduceMotion ? {} : { scale: 1.15 }}
+      whileTap={{ scale: 0.9 }}
+      animate={
+        shouldReduceMotion || drawerOpen
+          ? {}
+          : {
+              scale: [1, 1.08, 1],
+              boxShadow: [
+                '0 4px 20px rgba(37, 211, 102, 0.4)',
+                '0 4px 30px rgba(37, 211, 102, 0.6), 0 0 0 12px rgba(37, 211, 102, 0.12)',
+                '0 4px 20px rgba(37, 211, 102, 0.4)',
+              ],
+            }
+      }
+      transition={{
+        duration: 2,
+        repeat: Infinity,
+        ease: 'easeInOut',
+      }}
+    >
+      <WhatsAppIcon />
+    </motion.a>
+  )
+}

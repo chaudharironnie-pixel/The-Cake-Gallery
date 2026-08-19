@@ -2,6 +2,7 @@ import { useState, useRef } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import ScrollReveal from './ScrollReveal'
 import WhatsAppIcon from './WhatsAppIcon'
+import { Cake, Palette, Truck, CheckCircle, Sparkles } from 'lucide-react'
 
 const ConfettiParticle = ({ index }) => {
   const colors = ['#F4C2C2', '#D4A76A', '#5C3D2E', '#E8A0A0', '#3E2723']
@@ -103,6 +104,7 @@ export default function CustomOrderForm() {
     notes: '',
   })
   const [showConfetti, setShowConfetti] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
   const formRef = useRef(null)
 
   const handleChange = (e) => {
@@ -114,6 +116,8 @@ export default function CustomOrderForm() {
 
     setShowConfetti(true)
     setTimeout(() => setShowConfetti(false), 1200)
+    setSubmitted(true)
+    setTimeout(() => setSubmitted(false), 3000)
 
     let text = '*New Custom Cake Order*\n\n'
     text += '*Name:* ' + form.name + '\n'
@@ -145,9 +149,9 @@ export default function CustomOrderForm() {
             </p>
             <div className="space-y-4 mb-8">
               {[
-                { emoji: '🎂', title: 'Any Flavor', desc: 'Chocolate, vanilla, red velvet, butterscotch, or your custom request.' },
-                { emoji: '🎨', title: 'Custom Design', desc: 'Share a reference image or describe your idea — we'll bring it to life.' },
-                { emoji: '📦', title: 'Delivery in Bharuch', desc: 'Free delivery within Bharuch city. Carefully packed for safe transit.' },
+                { icon: <Cake className="w-4 h-4" />, title: 'Any Flavor', desc: 'Chocolate, vanilla, red velvet, butterscotch, or your custom request.' },
+                { icon: <Palette className="w-4 h-4" />, title: 'Custom Design', desc: "Share a reference image or describe your idea — we'll bring it to life." },
+                { icon: <Truck className="w-4 h-4" />, title: 'Delivery in Bharuch', desc: 'Free delivery within Bharuch city. Carefully packed for safe transit.' },
               ].map((item, i) => (
                 <motion.div
                   key={item.title}
@@ -157,8 +161,8 @@ export default function CustomOrderForm() {
                   transition={{ delay: i * 0.1, duration: 0.5 }}
                   viewport={{ once: true }}
                 >
-                  <span className="flex-shrink-0 w-8 h-8 bg-blush/40 rounded-full flex items-center justify-center text-sm">
-                    {item.emoji}
+                  <span className="flex-shrink-0 w-8 h-8 bg-blush/40 rounded-full flex items-center justify-center text-chocolate">
+                    {item.icon}
                   </span>
                   <div>
                     <h4 className="font-semibold text-chocolate">{item.title}</h4>
@@ -242,4 +246,68 @@ export default function CustomOrderForm() {
                     required
                     value={form.size}
                     onChange={handleChange}
-                 
+                  >
+                    <option value="">Select</option>
+                    <option>0.5 kg (6 inch)</option>
+                    <option>1 kg (7 inch)</option>
+                    <option>1.5 kg (8 inch)</option>
+                    <option>2 kg (9 inch)</option>
+                    <option>3 kg (10 inch)</option>
+                    <option>Custom Size</option>
+                  </AnimatedSelect>
+                  <AnimatedInput
+                    label="Delivery Date"
+                    id="date"
+                    type="date"
+                    required
+                    value={form.date}
+                    onChange={handleChange}
+                  />
+                </div>
+                <AnimatedInput
+                  label="Message on Cake (optional)"
+                  id="cakeMessage"
+                  type="text"
+                  placeholder="e.g. Happy Birthday Aarav!"
+                  value={form.message}
+                  onChange={handleChange}
+                />
+                <div>
+                  <label htmlFor="notes" className="block text-sm font-medium text-chocolate mb-1.5">
+                    Special Instructions (optional)
+                  </label>
+                  <textarea
+                    id="notes"
+                    rows="3"
+                    placeholder="Any design references, allergies, or special requests..."
+                    className="w-full px-4 py-3 rounded-xl border border-blush/40 bg-cream/50 text-cocoa placeholder-chocolate-light/40 focus:outline-none focus:ring-2 focus:ring-blush focus:border-transparent transition-all duration-300 resize-none"
+                    value={form.notes}
+                    onChange={handleChange}
+                  />
+                </div>
+                <motion.button
+                  type="submit"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full bg-green-500 text-white py-3.5 rounded-xl font-semibold text-base hover:bg-green-600 transition-colors duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+                >
+                  {submitted ? (
+                    <>
+                      <CheckCircle className="w-5 h-5" />
+                      Sent!
+                    </>
+                  ) : (
+                    <>
+                      <WhatsAppIcon className="w-5 h-5" />
+                      Send Order via WhatsApp
+                    </>
+                  )}
+                </motion.button>
+              </form>
+            </div>
+          </ScrollReveal>
+        </div>
+      </div>
+    </section>
+  )
+}

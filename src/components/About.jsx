@@ -1,6 +1,8 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import ScrollReveal from './ScrollReveal'
 import ImageWithFallback from './ImageWithFallback'
+import { FaInstagram } from 'react-icons/fa'
+import { Cake, Award, Leaf } from 'lucide-react'
 
 export default function About() {
   const shouldReduceMotion = useReducedMotion()
@@ -17,8 +19,8 @@ export default function About() {
             >
               <div className="absolute -inset-4 bg-blush/30 rounded-3xl rotate-3" />
               <ImageWithFallback
-                src="https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800&q=80"
-                alt="Prachi Patel, baker and owner of The Cake Gallery"
+                src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800&q=80"
+                alt="Prachi Patel with her husky, the heart behind The Cake Gallery"
                 className="relative rounded-2xl shadow-xl w-full object-cover aspect-[4/5] md:aspect-[3/4]"
                 loading="lazy"
               />
@@ -49,10 +51,36 @@ export default function About() {
               Every cake I bake is a labor of love — from sourcing the finest ingredients to hand-decorating each creation. Whether it's a grand wedding cake or a simple birthday treat, I pour the same care and artistry into every order.
             </p>
             <div className="flex flex-wrap gap-3 mb-6">
-              {['🎂 500+ Happy Customers', '🏆 Top Rated in Bharuch', '🌿 Fresh Ingredients'].map(
-                (tag, i) => (
-                  <motion.span
-                    key={tag}
-                    className="px-3 py-1.5 bg-cream rounded-full text-sm text-chocolate font-medium"
-                    initial={shouldReduceMotion ? {} : { opacity: 0, y: 10 }}
-                    whileInView={shouldReduceMotion ? {} : { opaci
+              {[
+                { icon: <Cake className="w-4 h-4" />, label: '500+ Happy Customers' },
+                { icon: <Award className="w-4 h-4" />, label: 'Top Rated in Bharuch' },
+                { icon: <Leaf className="w-4 h-4" />, label: 'Fresh Ingredients' },
+              ].map((tag, i) => (
+                <motion.span
+                  key={tag.label}
+                  className="px-3 py-1.5 bg-cream rounded-full text-sm text-chocolate font-medium inline-flex items-center gap-1.5"
+                  initial={shouldReduceMotion ? {} : { opacity: 0, y: 10 }}
+                  whileInView={shouldReduceMotion ? {} : { opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 + i * 0.1 }}
+                  viewport={{ once: true }}
+                >
+                  {tag.icon}
+                  {tag.label}
+                </motion.span>
+              ))}
+            </div>
+            <a
+              href="https://www.instagram.com/the.cake_gallery_bharuch/"
+              target="_blank"
+              rel="noopener"
+              className="inline-flex items-center gap-2 text-chocolate font-semibold hover:text-blush-dark transition-colors group"
+            >
+              Follow our journey on Instagram
+              <FaInstagram className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </a>
+          </ScrollReveal>
+        </div>
+      </div>
+    </section>
+  )
+}

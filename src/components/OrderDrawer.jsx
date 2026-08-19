@@ -1,10 +1,12 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import WhatsAppIcon from './WhatsAppIcon'
+import { X, Phone } from 'lucide-react'
 
-export default function OrderDrawer({ isOpen, onClose, cakeName, cakePrice }) {
+export default function OrderDrawer({ isOpen, onClose, cakeName, cakePrice, cakeCategory }) {
   const handleWhatsApp = () => {
+    const categoryText = cakeCategory ? ` (${cakeCategory})` : ''
     const msg = encodeURIComponent(
-      'Hi Prachi! I would like to order a ' + cakeName + ' (' + cakePrice + '). Please share the details.'
+      `Hi, I'd like to order: ${cakeName}${categoryText} (${cakePrice}). Please share the details.`
     )
     window.open('https://wa.me/917777934474?text=' + msg, '_blank')
   }
@@ -46,15 +48,16 @@ export default function OrderDrawer({ isOpen, onClose, cakeName, cakePrice }) {
                 className="p-2 rounded-full hover:bg-cream transition-colors"
                 aria-label="Close drawer"
               >
-                <svg className="w-5 h-5 text-chocolate" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                </svg>
+                <X className="w-5 h-5 text-chocolate" />
               </button>
             </div>
 
             <div className="bg-cream rounded-xl p-4 mb-5">
               <p className="text-sm text-chocolate-light/70 mb-1">You're ordering</p>
               <p className="font-serif text-lg font-bold text-chocolate">{cakeName}</p>
+              {cakeCategory && (
+                <p className="text-xs text-blush-dark font-medium mb-0.5">{cakeCategory}</p>
+              )}
               <p className="text-gold font-bold">{cakePrice}</p>
             </div>
 
@@ -65,4 +68,22 @@ export default function OrderDrawer({ isOpen, onClose, cakeName, cakePrice }) {
                 whileTap={{ scale: 0.98 }}
                 className="w-full bg-green-500 text-white py-3.5 rounded-xl font-semibold hover:bg-green-600 transition-colors duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2"
               >
-                <WhatsAppIc
+                <WhatsAppIcon className="w-5 h-5" />
+                Order on WhatsApp
+              </motion.button>
+              <motion.button
+                onClick={handleCall}
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="w-full bg-chocolate text-white py-3.5 rounded-xl font-semibold hover:bg-cocoa transition-colors duration-300 shadow-md hover:shadow-lg flex items-center justify-center gap-2"
+              >
+                <Phone className="w-5 h-5" />
+                Call Instead
+              </motion.button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  )
+}

@@ -14,10 +14,10 @@ import OrderDrawer from './components/OrderDrawer'
 
 export default function App() {
   const [drawerOpen, setDrawerOpen] = useState(false)
-  const [drawerCake, setDrawerCake] = useState({ name: '', price: '' })
+  const [drawerCake, setDrawerCake] = useState({ name: '', price: '', category: '' })
 
-  const handleOrderCake = useCallback((name, price) => {
-    setDrawerCake({ name, price })
+  const handleOrderCake = useCallback((name, price, category = '') => {
+    setDrawerCake({ name, price, category })
     setDrawerOpen(true)
     document.body.style.overflow = 'hidden'
   }, [])
@@ -45,6 +45,7 @@ export default function App() {
         onClose={closeDrawer}
         cakeName={drawerCake.name}
         cakePrice={drawerCake.price}
+        cakeCategory={drawerCake.category}
       />
     </>
   )

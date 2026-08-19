@@ -3,6 +3,7 @@ import ScrollReveal from './ScrollReveal'
 import WhatsAppIcon from './WhatsAppIcon'
 import ImageWithFallback from './ImageWithFallback'
 import { motion, useReducedMotion } from 'framer-motion'
+import { Flame, Star } from 'lucide-react'
 
 const stagger = {
   hidden: {},
@@ -48,9 +49,7 @@ export default function Trending({ onOrderCake }) {
               className="group relative"
             >
               <div className="absolute -top-3 -left-3 z-10 bg-gold text-white text-xs font-bold px-3 py-1 rounded-full shadow-md flex items-center gap-1">
-                <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                </svg>
+                <Flame className="w-3 h-3" />
                 Trending
               </div>
               <div className="relative overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-shadow duration-500">
@@ -68,6 +67,27 @@ export default function Trending({ onOrderCake }) {
                     <span className="text-gold font-bold text-lg">{item.price}</span>
                   </div>
                   <p className="text-chocolate-light/70 text-sm mb-4">{item.description}</p>
-                  <div className="flex items-center gap-1 mb-3">
-                    <span className="text-gold">★★★★★</span>
-                    <span className="text-xs text-cho
+                  <div className="flex items-center gap-0.5 mb-3">
+                    {[0, 1, 2, 3, 4].map((i) => (
+                      <Star key={i} className="w-4 h-4" fill="#D4A76A" stroke="#D4A76A" strokeWidth={1.5} />
+                    ))}
+                    <span className="text-xs text-chocolate-light/60 ml-1">({item.reviews})</span>
+                  </div>
+                  <motion.button
+                    onClick={() => onOrderCake(item.name, item.price)}
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="w-full bg-green-500 text-white py-2.5 rounded-xl font-medium text-sm hover:bg-green-600 transition-colors duration-300 hover:shadow-lg flex items-center justify-center gap-2"
+                  >
+                    <WhatsAppIcon />
+                    Order Now
+                  </motion.button>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  )
+}

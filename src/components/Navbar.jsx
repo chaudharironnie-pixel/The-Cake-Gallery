@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import WhatsAppIcon from './WhatsAppIcon'
+import { Cake, Menu as MenuIcon, X } from 'lucide-react'
 
 const NAV_LINKS = [
   { href: '#about', label: 'About' },
@@ -70,7 +71,7 @@ export default function Navbar() {
             className="flex items-center gap-2 group"
             whileHover={{ scale: 1.02 }}
           >
-            <span className="text-2xl md:text-3xl" aria-hidden="true">🎂</span>
+            <Cake className="w-7 h-7 md:w-8 md:h-8 text-chocolate group-hover:text-blush-dark transition-colors" strokeWidth={1.5} />
             <span className="font-serif text-xl md:text-2xl font-bold text-chocolate group-hover:text-blush-dark transition-colors">
               The Cake Gallery
             </span>
@@ -105,15 +106,7 @@ export default function Navbar() {
             aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
             onClick={() => setMobileOpen(!mobileOpen)}
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <motion.path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d={mobileOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16'}
-                animate={{ d: mobileOpen ? 'M6 18L18 6M6 6l12 12' : 'M4 6h16M4 12h16M4 18h16' }}
-                transition={{ duration: 0.2 }}
-              />
-            </svg>
+            {mobileOpen ? <X className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
           </button>
         </div>
       </div>
@@ -130,4 +123,33 @@ export default function Navbar() {
             <div className="px-4 py-4 space-y-1">
               {NAV_LINKS.map(({ href, label }, i) => (
                 <motion.a
-                  key={hr
+                  key={href}
+                  href={href}
+                  onClick={(e) => handleNavClick(e, href)}
+                  className={`mobile-nav-link ${activeSection === href.slice(1) ? 'active' : ''}`}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.05 }}
+                >
+                  {label}
+                </motion.a>
+              ))}
+              <motion.a
+                href={WHATSAPP_URL}
+                target="_blank"
+                rel="noopener"
+                className="mt-3 flex items-center justify-center gap-2 bg-green-500 text-white px-5 py-3 rounded-full font-medium hover:bg-green-600 transition-all"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+              >
+                <WhatsAppIcon className="w-5 h-5" />
+                Order on WhatsApp
+              </motion.a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.nav>
+  )
+}
